@@ -1,0 +1,80 @@
+{
+    "csv_file": "inventory.csv",
+    "window_geometry": {
+        "x": 100,
+        "y": 100,
+        "width": 1280,
+        "height": 800
+    },
+    "column_widths": {},
+    "master_data": {
+        "device_types": [
+            "PC",
+            "Laptop",
+            "Monitor",
+            "Drucker",
+            "Scanner",
+            "Telefon",
+            "Diensthandy",
+            "Router",
+            "Server",
+            "Sonstiges"
+        ],
+        "locations": [
+            "Hauptsitz",
+            "Niederlassung",
+            "Außenlager"
+        ],
+        "offices": [
+            "Büro 1",
+            "Büro 2",
+            "Büro 3",
+            "Serverraum"
+        ],
+        "conditions": [
+            "Neu",
+            "Sehr gut",
+            "Gut",
+            "Akzeptabel",
+            "Schlecht",
+            "Defekt"
+        ],
+        "statuses": [
+            "Aktiv",
+            "Inaktiv"
+        ],
+        "row_colors": [
+            {
+                "name": "Gelb",
+                "color": "#FFFAC8"
+            },
+            {
+                "name": "Orange",
+                "color": "#FFDCB4"
+            },
+            {
+                "name": "Rot",
+                "color": "#FFC8C8"
+            },
+            {
+                "name": "Grün",
+                "color": "#C8FFD0"
+            },
+            {
+                "name": "Blau",
+                "color": "#C8DCFF"
+            },
+            {
+                "name": "Lila",
+                "color": "#E6C8FF"
+            }
+        ],
+        "numbering": {
+            "prefix": "IT",
+            "separator": "-",
+            "padding": 4,
+            "start": 1
+        }
+    },
+    "templates": {}
+}

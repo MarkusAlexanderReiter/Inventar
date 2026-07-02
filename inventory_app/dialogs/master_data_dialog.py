@@ -35,6 +35,8 @@ class MasterDataDialog(QDialog):
         self.master_data = copy.deepcopy(master_data or DEFAULT_MASTER_DATA)
         self.list_widgets = {}
         self.list_labels = {}
+        # Listen, die auch ohne Einträge gespeichert werden dürfen
+        self.optional_lists = {"users"}
 
         self.setWindowTitle("Stammdaten verwalten")
         self.setMinimumWidth(650)
@@ -51,6 +53,7 @@ class MasterDataDialog(QDialog):
         self._add_list_tab("device_types", "Gerätetypen", self.master_data.get("device_types", []))
         self._add_list_tab("locations", "Standorte", self.master_data.get("locations", []))
         self._add_list_tab("offices", "Büros", self.master_data.get("offices", []))
+        self._add_list_tab("users", "Benutzer", self.master_data.get("users", []))
         self._add_list_tab("conditions", "Zustände", self.master_data.get("conditions", []))
         self._add_list_tab("statuses", "Statuswerte", self.master_data.get("statuses", []))
 
@@ -131,7 +134,7 @@ class MasterDataDialog(QDialog):
     def handle_accept(self):
         for key, widget in self.list_widgets.items():
             values = [widget.item(i).text().strip() for i in range(widget.count()) if widget.item(i).text().strip()]
-            if not values:
+            if not values and key not in self.optional_lists:
                 QMessageBox.warning(self, "Ungültige Eingabe", f"Die Liste '{self.list_labels[key]}' darf nicht leer sein.")
                 return
             self.master_data[key] = values

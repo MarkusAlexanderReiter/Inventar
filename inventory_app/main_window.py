@@ -60,6 +60,7 @@ class InventoryManager(QMainWindow):
             self.setGeometry(100, 100, 1280, 800)
 
         self.load_data()
+        self.seed_users_from_inventory()
         self.init_ui()
 
     def load_config(self) -> None:
@@ -129,6 +130,22 @@ class InventoryManager(QMainWindow):
 
         if updated:
             self.save_config()
+
+    def seed_users_from_inventory(self) -> None:
+        """Befüllt die Benutzer-Stammdaten einmalig aus den vorhandenen Inventardaten."""
+        if self.config.get("users_seeded"):
+            return
+
+        users = set(self.get_master_list("users"))
+        if hasattr(self, "df") and not self.df.empty and "Zugewiesener_Benutzer" in self.df:
+            for value in self.df["Zugewiesener_Benutzer"].dropna().astype(str):
+                value = value.strip()
+                if value:
+                    users.add(value)
+
+        self.config["master_data"]["users"] = sorted(users, key=str.casefold)
+        self.config["users_seeded"] = True
+        self.save_config()
 
     def get_master_list(self, key: str) -> list:
         master_data = self.config.get("master_data", {})

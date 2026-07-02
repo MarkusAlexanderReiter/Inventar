@@ -15,6 +15,7 @@ DEFAULT_MASTER_DATA = {
     ],
     "locations": ["Hauptsitz", "Niederlassung", "Außenlager"],
     "offices": ["Büro 1", "Büro 2", "Büro 3", "Serverraum"],
+    "users": [],
     "conditions": ["Neu", "Sehr gut", "Gut", "Akzeptabel", "Schlecht", "Defekt"],
     "statuses": ["Aktiv", "Inaktiv"],
     "row_colors": [

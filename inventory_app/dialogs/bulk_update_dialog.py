@@ -34,6 +34,7 @@ class BulkUpdateDialog(QDialog):
         self.locations = self.master_data.get("locations", DEFAULT_MASTER_DATA["locations"])
         self.offices = self.master_data.get("offices", DEFAULT_MASTER_DATA["offices"])
         self.conditions = self.master_data.get("conditions", DEFAULT_MASTER_DATA["conditions"])
+        self.users = self.master_data.get("users", DEFAULT_MASTER_DATA["users"])
 
         self.init_ui()
 
@@ -75,10 +76,12 @@ class BulkUpdateDialog(QDialog):
 
         # Zugewiesener Benutzer
         self.user_checkbox = QCheckBox("Zugewiesener Benutzer ändern")
-        self.user_input = QLineEdit()
-        self.user_input.setEnabled(False)
-        self.user_checkbox.toggled.connect(self.user_input.setEnabled)
-        form_layout.addRow(self.user_checkbox, self.user_input)
+        self.user_combo = QComboBox()
+        self.user_combo.setEditable(True)
+        self.user_combo.addItems([""] + self.users)
+        self.user_combo.setEnabled(False)
+        self.user_checkbox.toggled.connect(self.user_combo.setEnabled)
+        form_layout.addRow(self.user_checkbox, self.user_combo)
 
         # Standort
         self.location_checkbox = QCheckBox("Standort ändern")
@@ -163,7 +166,7 @@ class BulkUpdateDialog(QDialog):
         if self.serial_checkbox.isChecked():
             updates["Seriennummer"] = self.serial_input.text()
         if self.user_checkbox.isChecked():
-            updates["Zugewiesener_Benutzer"] = self.user_input.text()
+            updates["Zugewiesener_Benutzer"] = self.user_combo.currentText()
         if self.location_checkbox.isChecked():
             updates["Standort"] = self.location_combo.currentText()
         if self.office_checkbox.isChecked():

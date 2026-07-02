@@ -115,6 +115,7 @@ QDateEdit {
     border-radius: 5px;
     padding: 6px 36px 6px 8px;
     min-height: 22px;
+    combobox-popup: 0;
 }
 
 QLineEdit:focus,

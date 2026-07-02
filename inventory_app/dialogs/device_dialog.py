@@ -76,7 +76,9 @@ class DeviceDialog(QDialog):
         self.serial = QLineEdit()
         form_layout.addRow("Seriennummer:", self.serial)
 
-        self.assigned_user = QLineEdit()
+        self.assigned_user = QComboBox()
+        self.assigned_user.setEditable(True)
+        self.assigned_user.addItems([""] + self._get_master_values("users"))
         form_layout.addRow("Zugewiesener Benutzer:", self.assigned_user)
 
         self.location = QComboBox()
@@ -177,7 +179,7 @@ class DeviceDialog(QDialog):
                 self.brand.setText(template_data.get("Marke", ""))
                 self.model.setText(template_data.get("Modell", ""))
                 self.serial.setText(template_data.get("Seriennummer", ""))
-                self.assigned_user.setText(template_data.get("Zugewiesener_Benutzer", ""))
+                self.assigned_user.setEditText(template_data.get("Zugewiesener_Benutzer", ""))
 
                 location = template_data.get("Standort", "")
                 index = self.location.findText(location)
@@ -253,7 +255,7 @@ class DeviceDialog(QDialog):
         self.brand.setText(str(self.edit_values.get("Marke", "")))
         self.model.setText(str(self.edit_values.get("Modell", "")))
         self.serial.setText(str(self.edit_values.get("Seriennummer", "")))
-        self.assigned_user.setText(str(self.edit_values.get("Zugewiesener_Benutzer", "")))
+        self.assigned_user.setEditText(str(self.edit_values.get("Zugewiesener_Benutzer", "")))
         self.location.setEditText(str(self.edit_values.get("Standort", "")))
         self.office.setEditText(str(self.edit_values.get("Büro", "")))
 
@@ -283,7 +285,7 @@ class DeviceDialog(QDialog):
             "Marke": self.brand.text(),
             "Modell": self.model.text(),
             "Seriennummer": self.serial.text(),
-            "Zugewiesener_Benutzer": self.assigned_user.text(),
+            "Zugewiesener_Benutzer": self.assigned_user.currentText(),
             "Standort": self.location.currentText(),
             "Büro": self.office.currentText(),
             "Kaufdatum": self.purchase_date.date().toString("yyyy-MM-dd"),
@@ -571,7 +573,10 @@ class TemplateEditDialog(QDialog):
         self.serial = QLineEdit(self.template_data.get("Seriennummer", ""))
         form_layout.addRow("Seriennummer:", self.serial)
 
-        self.assigned_user = QLineEdit(self.template_data.get("Zugewiesener_Benutzer", ""))
+        self.assigned_user = QComboBox()
+        self.assigned_user.setEditable(True)
+        self.assigned_user.addItems([""] + self.master_data.get("users", DEFAULT_MASTER_DATA["users"]))
+        self.assigned_user.setEditText(self.template_data.get("Zugewiesener_Benutzer", ""))
         form_layout.addRow("Zugewiesener Benutzer:", self.assigned_user)
 
         self.location = QComboBox()
@@ -636,7 +641,7 @@ class TemplateEditDialog(QDialog):
             "Marke": self.brand.text(),
             "Modell": self.model.text(),
             "Seriennummer": self.serial.text(),
-            "Zugewiesener_Benutzer": self.assigned_user.text(),
+            "Zugewiesener_Benutzer": self.assigned_user.currentText(),
             "Standort": self.location.currentText(),
             "Büro": self.office.currentText(),
             "Zustand": self.condition.currentText(),
